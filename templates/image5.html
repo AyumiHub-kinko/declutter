@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>カウントダウンタイマー - Image 5</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <button id="retry-button" onclick="window.location.href='/'">もう一回！</button>
+    <div id="timer">02:00</div>
+    <div id="image-container">
+        <img id="image" src="{{ url_for('static', filename='images1/image5.jpg') }}" alt="Image 5">
+    </div>
+    <div id="message">やってみよう！</div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+        const images = [
+            "{{ url_for('static', filename='images1/image5.jpg') }}",
+            "{{ url_for('static', filename='images2/image5_2.jpg') }}",
+            "{{ url_for('static', filename='images3/image5_3.jpg') }}"
+        ];
+        const sounds = [
+            "{{ url_for('static', filename='sounds1/sound1.mp3') }}",
+            "{{ url_for('static', filename='sounds2/sound2.mp3') }}",
+            "{{ url_for('static', filename='sounds3/sound3.mp3') }}"
+        ];
+
+        startCountdown(120);
+    </script>
+</body>
+</html>
