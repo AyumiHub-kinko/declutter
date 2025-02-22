@@ -1,1 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>カウントダウンタイマー - Image 1</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <button id="retry-button" onclick="window.location.href='/'">もう一回！</button>
+    <div id="timer">02:00</div>
+    <div id="image-container">
+        <img id="image" src="{{ url_for('static', filename='images1/image1.jpg') }}" alt="Image 1">
+    </div>
+    <div id="message">やってみよう！</div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+        const images = [
+            "{{ url_for('static', filename='images1/image1.jpg') }}",
+            "{{ url_for('static', filename='images2/image1_2.jpg') }}",
+            "{{ url_for('static', filename='images3/image1_3.jpg') }}"
+        ];
+        const sounds = [
+            "{{ url_for('static', filename='sounds1/sound1.mp3') }}",
+            "{{ url_for('static', filename='sounds2/sound2.mp3') }}",
+            "{{ url_for('static', filename='sounds3/sound3.mp3') }}"
+        ];
+
+        function startCountdown(duration) {
+            let timer = duration, minutes, seconds;
+            const interval = setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+                document.getElementById('timer').textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    clearInterval(interval);
+                    document.getElementById('message').textContent = "お疲れ様でした！";
+                    document.getElementById('image').src = images[2]; // 終了時の画像
+                    new Audio(sounds[2]).play(); // 終了時の音を再生
+                } else if (timer === 60) { // 残り1分
+                    document.getElementById('image').src = images[1]; // 残り1分の画像
+                    new Audio(sounds[1]).play();
+                    document.getElementById('message').textContent = "もう少し！頑張って！";
+                }
+            }, 1000);
+            new Audio(sounds[0]).play();
+        }
+
+        startCountdown(120);
+    </script>
+</body>
+</html>
 
