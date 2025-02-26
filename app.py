@@ -18,13 +18,5 @@ def image2():
 def image3():
     return render_template('image3.html')
 
-@app.route('/image4')
-def image4():
-    return render_template('image4.html')
-
-@app.route('/image5')
-def image5():
-    return render_template('image5.html')
-
 if __name__ == '__main__':
     app.run(debug=True)

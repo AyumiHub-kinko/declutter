@@ -7,14 +7,16 @@
     <link rel="stylesheet" href="static/styles.css">
 </head>
 <body>
-    <button id="start-button" onclick="startGame()">開始</button>
+    <button id="start-button">開始</button>
     <div id="timer">02:00</div>
     <div id="message">スタートボタンを押してね</div>
     <script>
-        function startGame() {
-            const randomImage = Math.floor(Math.random() * 5) + 1; // 1から5のランダムな数
-            window.location.href = `/image${randomImage}`; // Flaskのルーティングを使って移動
-        }
+        // 「開始」ボタンがクリックされたときにランダムなページに遷移
+        document.getElementById("start-button").addEventListener("click", function() {
+            const availablePages = ["image1", "image2", "image3"]; // ルート名だけの配列
+            const randomPage = availablePages[Math.floor(Math.random() * availablePages.length)];
+            window.location.href = `/${randomPage}`; // Flaskのルーティングを使って移動
+        });
     </script>
 </body>
 </html>

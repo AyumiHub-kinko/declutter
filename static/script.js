@@ -79,8 +79,6 @@ document.addEventListener("DOMContentLoaded", function() {
         "image1.html",
         "image2.html",
         "image3.html",
-        //"image4.html",  // 一時的に無効化
-        //"image5.html"   // 一時的に無効化
     ];
 
     // 「開始」ボタンを押したときにランダムなページに遷移
