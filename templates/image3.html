@@ -5,28 +5,109 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>カウントダウンタイマー - Image 3</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('/static/back_images/back.jpg');
+            background-size: cover;
+            background-position: center;
+            z-index: 0; /* 背景を最背面に */
+            display: none; /* 初期は非表示 */
+        }
+        #image {
+            position: relative;
+            z-index: 1; /* 画像を前面に */
+        }
+    </style>
 </head>
 <body>
+    <div id="background" class="background"></div>
+
     <button id="retry-button" onclick="window.location.href='/'">もう一回！</button>
     <div id="timer">02:00</div>
     <div id="image-container">
         <img id="image" src="{{ url_for('static', filename='images1/image3.jpg') }}" alt="Image 3">
     </div>
-    <div id="message">やってみよう！</div>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-    <script>
-        const images = [
-            "{{ url_for('static', filename='images1/image3.jpg') }}",
-            "{{ url_for('static', filename='images2/image3_2.jpg') }}",
-            "{{ url_for('static', filename='images3/image3_3.jpg') }}"
-        ];
-        const sounds = [
-            "{{ url_for('static', filename='sounds1/sound1.mp3') }}",
-            "{{ url_for('static', filename='sounds2/sound2.mp3') }}",
-            "{{ url_for('static', filename='sounds3/sound3.mp3') }}"
-        ];
 
-        startCountdown(120);
+    <h2 id="place-display">どこを片付けるかな？</h2>
+    <div id="message">応援してるよ！やってみよう！</div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const images = {
+                image1: [
+                    "/static/images1/image1.jpg",
+                    "/static/images2/image1_2.jpg",
+                    "/static/images3/image1_3.jpg"
+                ],
+                image2: [
+                    "/static/images1/image2.jpg",
+                    "/static/images2/image2_2.jpg",
+                    "/static/images3/image2_3.jpg"
+                ],
+                image3: [
+                    "/static/images1/image3.jpg",
+                    "/static/images2/image3_2.jpg",
+                    "/static/images3/image3_3.jpg"
+                ],
+                image4: [
+                    "/static/images1/image4.jpg",
+                    "/static/images2/image4_2.jpg",
+                    "/static/images3/image4_3.jpg"
+                ],
+                image5: [
+                    "/static/images1/image5.jpg",
+                    "/static/images2/image5_2.jpg",
+                    "/static/images3/image5_3.jpg"
+                ]
+            };
+
+            const sounds = [
+                "/static/sounds1/sound1.mp3",
+                "/static/sounds2/sound2.mp3",
+                "/static/sounds3/sound3.mp3"
+            ];
+            
+            const places = ["おもちゃ箱", "机の上", "本棚", "クローゼット", "玄関", "ベッドの下", "冷蔵庫の中"];
+            let randomPlace = places[Math.floor(Math.random() * places.length)];
+            let placeDisplay = document.getElementById("place-display");
+            if (placeDisplay) {
+                placeDisplay.textContent = `今日は「${randomPlace}」を片付けよう！`;
+            }
+
+            const currentPage = window.location.pathname.split('/').pop().split('.')[0]; 
+            const currentImages = images[currentPage] || images.image1;
+
+            function startCountdown(duration) {
+                let timer = duration, minutes, seconds;
+                const interval = setInterval(function () {
+                    minutes = parseInt(timer / 60, 10);
+                    seconds = parseInt(timer % 60, 10);
+                    seconds = seconds < 10 ? "0" + seconds : seconds;
+                    document.getElementById('timer').textContent = minutes + ":" + seconds;
+
+                    if (--timer < 0) {
+                        clearInterval(interval);
+                        document.getElementById('message').textContent = "一緒に片づけてくれてありがとう！お疲れ様でした！";
+                        document.getElementById('image').src = currentImages[2]; 
+                        new Audio(sounds[2]).play(); 
+
+                        document.getElementById('background').style.display = 'block';
+                    } else if (timer === 60) { 
+                        document.getElementById('image').src = currentImages[1]; 
+                        new Audio(sounds[1]).play();
+                        document.getElementById('message').textContent = "あと25分だけ頑張ってみよう！";
+                    }
+                }, 1000);
+                new Audio(sounds[0]).play();
+            }
+
+            startCountdown(120);
+        });
     </script>
 </body>
 </html>

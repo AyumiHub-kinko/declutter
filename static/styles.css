@@ -1,0 +1,67 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    text-align: center;
+    position: relative; /* Canvasの位置調整のために必要 */
+}
+
+#fireworksCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Canvasを背景に */
+}
+
+#timer {
+    font-size: 48px;
+    color: #333;
+    margin: 20px 0;
+    position: relative;
+    z-index: 1; /* テキストを前面に */
+}
+
+#image-container {
+    margin: 20px 0;
+}
+
+#image {
+    max-width: 100%;
+    height: auto;
+    position: relative;
+    z-index: 1; /* テキストを前面に */
+}
+
+#retry-button {
+    padding: 10px 20px;
+    font-size: 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    position: relative;
+    z-index: 1; /* テキストを前面に */
+}
+
+#retry-button:hover {
+    background-color: #0056b3;
+}
+
+#place-display {
+    font-size: 24px;
+    color: #555;
+    margin: 20px 0;
+    position: relative;
+    z-index: 1; /* テキストを前面に */
+}
+
+#message {
+    font-size: 28px;
+    color: green;
+    margin: 20px 0;
+    position: relative;
+    z-index: 1; /* テキストを前面に */
+}
